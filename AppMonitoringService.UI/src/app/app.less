@@ -1,0 +1,254 @@
+/*.container {
+  padding: 20px;
+}
+
+.device-card {
+  margin: 20px 0;
+}
+
+mat-table {
+  width: 100%;
+  margin-top: 20px;
+}*/
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 24px;
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  
+  h3 {
+    color: #34495e;
+    margin: 32px 0 20px 0;
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+}
+
+.device-card {
+  margin: 20px 0 30px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+  
+  
+  
+  mat-card-header {
+    background: rgba(255,255,255,0.15);
+    padding: 20px 24px;
+    border-radius: 12px 12px 0 0;
+    margin: 0;
+  }
+  
+  mat-card-title {
+    font-size: 1.8rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  
+  mat-card-subtitle {
+    font-weight: 300;
+  }
+  
+  mat-card-content {
+    padding: 0 24px 24px 24px; 
+    p {
+      font-size: 1.2rem;
+      margin: 0;
+      font-weight: 300;
+    }
+  }
+}
+
+mat-table {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  
+  
+  
+  mat-header-cell {
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 16px 16px;
+  }
+  
+  mat-row {
+    &:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+    
+    &:nth-child(odd) {
+      background-color: white;
+    }
+    
+    
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid #e9ecef;
+    }
+  }
+  
+  mat-cell, mat-header-cell {
+    padding: 14px 16px;
+    
+    &:first-child {
+      padding-left: 24px;
+    }
+    
+    &:last-child {
+      padding-right: 24px;
+    }
+  }
+  
+  mat-cell {
+    color: #2c3e50;
+    font-weight: 500;
+  }
+}
+
+.delete-old-records {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin: 30px 0;
+  padding: 25px;
+  border-radius: 12px;
+  
+  mat-form-field {
+    //background: white;
+    min-width: 280px;
+    
+    .mat-form-field-wrapper {
+      padding: 0;
+      
+      .mat-form-field-flex {
+        background: white; 
+        border-radius: 4px;
+        
+        .mat-form-field-infix {
+          padding: 12px 0;
+          border: none;
+        }
+      }
+      
+      .mat-form-field-underline {
+        display: none; 
+      }
+    }
+
+
+    .mat-form-field-label {
+      color: #2c3e50;
+      font-weight: 500;
+    }
+    
+    .mat-input-element {
+      background: white;
+      //color: #2c3e50;
+      font-weight: 500;
+    }
+
+   
+  }
+  
+  button {
+    height: 56px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--mat-button-text-label-text-color, var(--mat-sys-primary));
+    align-self: flex-start;
+    
+    
+    &:disabled {
+      background: #bdc3c7;
+      box-shadow: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    
+    mat-form-field, button {
+      width: 100%;
+    }
+    button {
+      align-self: stretch;
+    }
+  }
+}
+
+// Стили для кнопок
+.mat-button {
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 8px 16px;
+  
+  &[color="primary"] {
+    color: white;
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba(79,172,254,0.4);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.mat-raised-button {
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  
+  &[color="warn"] {
+    
+    &:not(:disabled) {
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .device-card {
+    mat-card-header {
+      padding: 16px 20px;
+      margin: -12px -12px 12px -12px;
+    }
+    
+    mat-card-title {
+      font-size: 1.5rem;
+    }
+  }
+  
+  mat-table {
+    mat-cell, mat-header-cell {
+      padding: 12px 12px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .delete-old-records {
+    padding: 20px;
+    gap: 16px;
+  }
+}

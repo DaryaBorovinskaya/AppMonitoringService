@@ -1,0 +1,45 @@
+<div class="container" *ngIf="device">
+  <button mat-button routerLink="/">Назад</button>
+  
+  <mat-card class="device-card">
+    <mat-card-header>
+      <mat-card-title>{{device.name}}</mat-card-title>
+      <mat-card-subtitle>ID: {{device.id}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Версия приложения (последн.): {{device.version}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <h3>Сессии активности</h3>
+
+  <div class="delete-old-records">
+    <mat-form-field appearance="fill">
+      <mat-label>Удалить записи старше, чем</mat-label>
+      <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button color="warn" (click)="deleteOldRecords(selectedDate)" [disabled]="!selectedDate">
+      Удалить старые записи
+    </button>
+  </div>
+
+  
+  <mat-table [dataSource]="sessions" class="mat-elevation-z8">
+   
+    <ng-container matColumnDef="startTime">
+      <mat-header-cell *matHeaderCellDef>Время включения</mat-header-cell>
+      <mat-cell *matCellDef="let session">{{formatDate(session.startTime)}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="endTime">
+      <mat-header-cell *matHeaderCellDef>Время выключения</mat-header-cell>
+      <mat-cell *matCellDef="let session">{{formatDate(session.endTime)}}</mat-cell>
+    </ng-container>
+
+    
+    <mat-header-row *matHeaderRowDef="['startTime', 'endTime']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['startTime', 'endTime'];"></mat-row>
+  </mat-table>
+</div>
