@@ -10,7 +10,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./AppMonitoringService.API/devices_backup.json:/app/devices_backup.json:rw
+      - ./AppMonitoringService.API/devices_backup:/app/devices_backup:rw
  
   frontend:
     build: 
