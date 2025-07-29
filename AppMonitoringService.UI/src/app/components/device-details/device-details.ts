@@ -2,11 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {Router, ActivatedRoute } from '@angular/router';
 import { DeviceService } from '../../services/device.service';
 import { Device, DeviceSession } from '../../models/device';
-import { Observable } from 'rxjs';
-import { interval, Subscription } from 'rxjs';
-import { switchMap, startWith } from 'rxjs/operators';
-import { tap, catchError, finalize } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
@@ -16,13 +11,12 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   styleUrl: './device-details.less'
 })
 
-export class DeviceDetailsComponent implements OnInit,OnDestroy {
+export class DeviceDetailsComponent implements OnInit {
   devices: Device[] = [];
   sessions: DeviceSession[] = [];
   device!: Device;
   selectedDate: string = "";
   deviceId: string = "";
-  private deviceRefreshSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,40 +30,6 @@ export class DeviceDetailsComponent implements OnInit,OnDestroy {
       this.loadDevice(id);
     }
   }
-
-  ngOnDestroy(): void {
-    // отписаться при уничтожении компонента
-    if (this.deviceRefreshSubscription) {
-      this.deviceRefreshSubscription.unsubscribe();
-    }
-  }
-
-  //#region Периодическое обновление (каждые 5 сек) для подгрузки новых данных 
-  // (в случае, если данные приходят очень часто)
-  // loadDevice(id: string): void {
-  //   // Отписываемся от предыдущей подписки
-  //   if (this.deviceRefreshSubscription) {
-  //     this.deviceRefreshSubscription.unsubscribe();
-  //   }
-    
-  //   // Настраиваем обновление для нового устройства
-  //   this.setupDeviceRefresh(id);
-  // }
-
-  // private setupDeviceRefresh(deviceId: string): void {
-  //   this.deviceRefreshSubscription = interval(5000) // 5 секунд
-  //     .pipe(
-  //       startWith(0), // Запустить сразу
-  //       switchMap(() => this.deviceService.getDeviceSessions(deviceId))
-  //     )
-  //     .subscribe(
-  //       (data) => {
-  //         this.devices = data;
-  //       },
-  //       (error) => console.error('Error loading device sessions', error)
-  //     );
-  // }
-  //#endregion
 
   /**Перенаправление на другой HTML-файл (списка всех устройств) */
   backToList(): void {

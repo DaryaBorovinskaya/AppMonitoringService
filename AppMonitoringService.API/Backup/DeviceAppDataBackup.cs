@@ -11,11 +11,6 @@ namespace AppMonitoringService.API.Backup
     public class DeviceAppDataBackup
     {
         /// <summary>
-        /// Путь к файлу
-        /// </summary>
-        private readonly string _backupFilePath;
-
-        /// <summary>
         /// Сервис логирования
         /// </summary>
         private readonly ILogger<DeviceService> _logger;
@@ -23,37 +18,7 @@ namespace AppMonitoringService.API.Backup
         public DeviceAppDataBackup(ILogger<DeviceService> logger)
         {
             _logger = logger;
-            _backupFilePath = "devices_backup.json";
 
-        }
-
-        /// <summary>
-        /// Подгрузить данные из файла (если есть)
-        /// </summary>
-        /// <returns></returns>
-        public List<DeviceAppData> LoadData()
-        {
-            List<DeviceAppData> devices;
-
-            try
-            {
-                if (File.Exists(_backupFilePath))
-                {
-                    string json = File.ReadAllText(_backupFilePath);
-                    devices = JsonSerializer.Deserialize<List<DeviceAppData>>(json) ?? new ();
-                    _logger.LogInformation("Данные успешно загружены из бэкапа");
-                }
-                else
-                {
-                    devices = new();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Ошибка при загрузке данных из бэкапа");
-                devices = new ();
-            }
-            return devices;
         }
 
         /// <summary>
@@ -66,9 +31,22 @@ namespace AppMonitoringService.API.Backup
             {
                 JsonSerializerOptions? options = new JsonSerializerOptions { WriteIndented = true };
                 string? json = JsonSerializer.Serialize(devices, options);
-                File.WriteAllText(_backupFilePath, json);
+
+                string backupDirectory = "/app/devices_backup";
+                if (!Directory.Exists(backupDirectory))
+                {
+                    Directory.CreateDirectory(backupDirectory);
+                }
+
+                TimeZoneInfo utcPlus7 = TimeZoneInfo.FindSystemTimeZoneById("Asia/Novosibirsk"); 
+                DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, utcPlus7);
+
+                string fileName = $"devices_backup_{localTime.ToString("ddMMyyyy_HHmmss")}.json";
+                string path = Path.Combine(backupDirectory, fileName);
+
+                File.WriteAllText(path, json);
                 _logger.LogInformation("Бэкап данных успешно сохранен");
-                _logger.LogInformation("Бэкап сохраняется в: {Path}", Path.GetFullPath(_backupFilePath));
+                _logger.LogInformation("Бэкап сохраняется в: ./AppMonitoringService.API/devices_backup/");
             }
             catch (Exception ex)
             {
