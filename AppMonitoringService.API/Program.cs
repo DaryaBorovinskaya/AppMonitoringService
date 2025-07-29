@@ -21,20 +21,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Для Docker
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowAll", policy =>
-//    {
-//        policy.WithOrigins("http://appmonitoring-ui")
-//              .AllowAnyMethod()
-//              .AllowAnyHeader();
-//    });
-//});
-
-
 var app = builder.Build();
-//app.UseCors("AllowAll");  // Для Docker
+app.UseCors(); 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -43,9 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();  //для Docker надо закомментить
-
-app.UseCors();
+app.UseHttpsRedirection(); 
 
 app.UseAuthorization();
 
