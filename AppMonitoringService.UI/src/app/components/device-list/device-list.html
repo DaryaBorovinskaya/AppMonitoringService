@@ -1,6 +1,10 @@
 <div class="container">
   <h2>Сервис мониторинга устройств</h2>
   
+  <button mat-button color="primary" (click)="backup()">
+    Бэкап
+  </button>
+
   <mat-table [dataSource]="devices" class="mat-elevation-z8">
     
     <ng-container matColumnDef="id">

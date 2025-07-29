@@ -32,4 +32,9 @@ export class DeviceService {
   deleteOldRecords(id: string, date: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}/old?date=${date}`);
   }
+
+  /**Бэкап данных*/
+  backup(): Observable<any>{
+    return this.http.get(`${this.apiUrl}/backup`);
+  }
 }

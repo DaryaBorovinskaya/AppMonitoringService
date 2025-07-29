@@ -64,4 +64,14 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   viewDetails(id: string): void {
     this.router.navigate(['/device', id]); 
   }
+
+  /**Бэкап данных*/
+  backup():void{
+    this.deviceService.backup().subscribe({
+      next: () => {
+        alert("Бэкап создан");
+        console.log("Бэкап создан");
+      }
+    });
+  }
 }

@@ -139,5 +139,16 @@ namespace AppMonitoringService.API.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        /// <summary>
+        /// Бэкап данных в файл
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("backup")]
+        public IActionResult Backup()
+        {
+            _deviceService.Backup();
+            return Ok();
+        }
     }
 }

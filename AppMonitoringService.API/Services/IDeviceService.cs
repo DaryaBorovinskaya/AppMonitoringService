@@ -33,5 +33,10 @@ namespace AppMonitoringService.API.Services
         /// <param name="date"></param>
         /// <returns></returns>
         int DeleteOldRecords(string id, DateTime date);
+
+        /// <summary>
+        /// Бэкап данных в файл
+        /// </summary>
+        void Backup();
     }
 }

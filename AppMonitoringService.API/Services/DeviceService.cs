@@ -20,16 +20,15 @@ namespace AppMonitoringService.API.Services
         {
             _logger = logger;
             _backup = new(_logger);
-
-            // Попытка загрузить данные из бэкапа при старте
-            _devices = _backup.LoadData();
+            _devices = new List<DeviceAppData>();
         }
 
         public void AddData(DeviceAppData data)
         {
+            _logger.LogInformation("{count}", _devices.Count);
             _devices.Add(data);
             _logger.LogInformation("Добавлено устройство: {deviceId}", data.Id);
-            _backup.SaveBackup(_devices);
+            
         }
 
         public List<DeviceAppData> GetAllDevices()
@@ -54,12 +53,12 @@ namespace AppMonitoringService.API.Services
             ));
             _logger.LogInformation("Удалено {Count} устаревших записей", countDelete);
 
-            if (countDelete > 0)
-            {
-                _backup.SaveBackup(_devices);
-            }
-
             return countDelete;
+        }
+
+        public void Backup()
+        {
+            _backup.SaveBackup(_devices);
         }
     }
 }
